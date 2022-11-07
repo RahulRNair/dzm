@@ -1,4 +1,4 @@
-import { render, screen, cleanup, fireEvent, mount } from "@testing-library/react";
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import StarwarTable from "./starwartable";
 import { act } from "react-dom/test-utils";
 
@@ -84,4 +84,58 @@ it("renders and seacrh table data and clear", async () => {
     expect(screen.getByTestId("sortable-table")).toBeInTheDocument();
     expect(screen.getByText(fakeData.results[0].name)).toBeInTheDocument();
 });
+it("render table and sort by name", async () => {
+    const fakeData = {
+        results: [
+            {
+                name: "Luke Skywalker",
+                height: "172",
+                mass: "77",
+                hair_color: "blond",
+                skin_color: "fair",
+                eye_color: "blue",
+                birth_year: "19BBY",
+                gender: "male",
+                created: "2014-12-09T13:50:51.644000Z",
+                edited: "2014-12-20T21:17:56.891000Z",
+                url: "https://swapi.dev/api/people/1/",
+            },
+            {
+                name: "Beru Whitesun lars",
+                height: "172",
+                mass: "77",
+                hair_color: "blond",
+                skin_color: "fair",
+                eye_color: "blue",
+                birth_year: "19BBY",
+                gender: "male",
+                created: "2014-12-09T13:50:51.644000Z",
+                edited: "2014-12-20T21:17:56.891000Z",
+                url: "https://swapi.dev/api/people/1/",
+            }
+        ],
+    };
+    jest.spyOn(global, "fetch").mockImplementation(() =>
+        Promise.resolve({
+            json: () => Promise.resolve(fakeData),
+        })
+    );
 
+    // Use the asynchronous version of act to apply resolved promises
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+        render(<StarwarTable />);
+    });
+    const header_name  = screen.getByTestId("head_name");
+    expect(screen.getByTestId("sortable-table")).toBeInTheDocument();
+    expect(header_name).toBeInTheDocument();
+    const tableRowBeforeSort = screen.getAllByTestId("row_name");
+    expect(tableRowBeforeSort.length).toBe(2);
+    expect(tableRowBeforeSort[0]).toHaveTextContent("Luke Skywalker");
+    fireEvent.click(header_name)
+    const tableRowAfterSort = screen.getAllByTestId("row_name");
+    expect(tableRowAfterSort.length).toBe(2);
+    expect(tableRowAfterSort[0]).toHaveTextContent("Beru Whitesun lars");
+   
+});
