@@ -34,7 +34,8 @@ Note: sample api url http://localhost:3000/api/peoples
 
 to run the unit test , run the command - npm run test
 
-![image](https://user-images.githubusercontent.com/6522722/200279772-f248cdd9-08c9-4004-88b8-80c9f8e43790.png)
+![image](https://user-images.githubusercontent.com/6522722/200400256-3d68a056-d4fb-4beb-ae84-d72f0f59fd59.png)
+
 
 Note : client code is created using create-react-app
 
