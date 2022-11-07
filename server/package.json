@@ -1,0 +1,22 @@
+{
+    "name": "resetapi_swapi",
+    "version": "1.0.0",
+    "description": "SWAPI Proxy",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js",
+        "test": "jest"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "http-errors": "^1.7.3",
+        "jest": "^29.2.2",
+        "supertest": "^6.3.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
+}
